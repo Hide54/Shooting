@@ -15,9 +15,6 @@ public class MyAmmoController : MonoBehaviour
     private float _rayY = default;
     [SerializeField, Header("BoxCast‚ÌzÀ•W‚Ì”¼Œa")]
     private float _rayZ = default;
-    private CharacterController _plyer = default;
-
-    private Vector3 _velocity = default;
 
     private PoolManager _objectPool = default;
 
@@ -29,7 +26,7 @@ public class MyAmmoController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        this.transform.position += transform.forward * _speed * Time.deltaTime;
+        this.transform.position += this.transform.forward * _speed * Time.deltaTime;
 
         //ray‚ª“–‚½‚Á‚½‚ç©•ª‚ğ‰ñû
         RaycastHit _hit;
@@ -43,9 +40,7 @@ public class MyAmmoController : MonoBehaviour
         }
     }
 
-    /* ’e‚ğŒ‚‚Â‚Æ‚«‚Ì‰Šú‰»‚ÌŠÖ”
-     * 
-     */
+    // ’e‚ÌˆÊ’u‚ÆŒü‚«‰Šú‰»ˆ—
     public void Init(Vector3 position, Quaternion rotation)
     {
         this.transform.position = position;

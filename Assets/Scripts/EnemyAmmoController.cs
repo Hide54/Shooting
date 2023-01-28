@@ -6,29 +6,17 @@ public class EnemyAmmoController : MonoBehaviour
 {
     [SerializeField, Header("’e‚ÌˆÚ“®‘¬“x")]
     private float _speed = default;
-    [SerializeField, Header("©•ª‚ğİ’è")]
-    private GameObject _amo = default;
 
-    private PoolManager _objectPool;
+    [HideInInspector]
+    public PoolManager _objectPool = default;
 
     private void Awake()
     {
-        _objectPool = transform.parent.GetComponent<PoolManager>();
-        gameObject.SetActive(false);
-    }
-    public void OnBecameInvisible()
-    {
-        HideFromStage();
+        _objectPool = this.transform.parent.GetComponent<PoolManager>();
     }
 
-    public void ShowInStage(Vector3 _pos)
+    private void FixedUpdate()
     {
-        transform.position = _pos;
-    }
-
-    //©g‚ğ‰ñû
-    public void HideFromStage()
-    {
-        _objectPool.EACollect1(this);
+        this.transform.position += this.transform.forward * _speed * Time.deltaTime;
     }
 }

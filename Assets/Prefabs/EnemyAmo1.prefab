@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3686100930964341093}
   - component: {fileID: 3686100930964341094}
   - component: {fileID: 3686100930964341095}
-  - component: {fileID: -2686436855688515459}
+  - component: {fileID: -3645753020694209981}
   m_Layer: 0
   m_Name: EnemyAmo1
   m_TagString: EAmo1
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-2686436855688515459
+--- !u!114 &-3645753020694209981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3686100930964341113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70359776cd9a5c844953ca0c741f213b, type: 3}
+  m_Script: {fileID: 11500000, guid: 21d6e8c9852e86d41b5c5ec784827583, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 2
-  _amo: {fileID: 0}
+  _speed: 5
+  _objectPool: {fileID: 0}

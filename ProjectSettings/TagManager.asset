@@ -6,6 +6,8 @@ TagManager:
   tags:
   - EAmo1
   - EAmo2
+  - Wall
+  - Core
   layers:
   - Default
   - TransparentFX
