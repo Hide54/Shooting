@@ -11,9 +11,28 @@ public class EnemyAmmo2 : EnemyAmmoController
         this.transform.rotation = rotation;
     }
 
+    //オブジェクトに当たった処理
+    public void OnTriggerEnter(Collider obj)
+    {
+        Damageable _damageable = obj.gameObject.GetComponent<Damageable>();
+
+        //壁に当たったら何もせずに自分を回収
+        if (obj.CompareTag("Wall"))
+        {
+            HideFromStage();
+        }
+        //プレイヤーに当たったらプレイヤーの体力を1減らして自分を回収
+        else if (obj.CompareTag("Player"))
+        {
+            _damageable.Damage(_enemyDamage);
+            HideFromStage();
+        }
+    }
+
     //自身を回収
     public void HideFromStage()
     {
         _objectPool.EACollect2(this);
     }
+
 }

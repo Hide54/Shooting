@@ -32,9 +32,6 @@ public class PlayerController : MonoBehaviour, Damageable
     //Lトリガーの入力値
     private bool _leftTrigger = default;
 
-    private float _horizontal = 0;
-    private float _vertical = 0;
-
     //自身のRigidbody
     private Rigidbody _rb = default;
     //移動速度
@@ -61,36 +58,7 @@ public class PlayerController : MonoBehaviour, Damageable
     //プレイヤーの移動処理
     public void PlayerMove()
     {
-        //テスト用キー操作
-        #region
-        if (Keyboard.current.dKey.isPressed)
-        {
-            _horizontal = 1;
-        }
-        else if (Keyboard.current.aKey.isPressed)
-        {
-            _horizontal = -1;
-        }
-        else
-        {
-            _horizontal = 0;
-        }
-        if (Keyboard.current.wKey.isPressed)
-        {
-            _vertical = 1;
-        }
-        else if (Keyboard.current.sKey.isPressed)
-        {
-            _vertical = -1;
-        }
-        else
-        {
-            _vertical = 0;
-        }
-        #endregion
-
-        //_velocity = new Vector3(_leftInput.x, 0.0f, _leftInput.y);
-        _velocity = new Vector3(_horizontal, 0.0f, _vertical);
+        _velocity = new Vector3(_leftInput.x, 0.0f, _leftInput.y);
         _rb.velocity = _velocity.normalized * _speed;
     }
 
@@ -106,11 +74,17 @@ public class PlayerController : MonoBehaviour, Damageable
     {
         _audio.PlayOneShot(_clips[1]);
         _hp -= value;
+        if (_hp == 0)
+        {
+            Death();
+        }
+        Debug.Log(_hp);
     }
 
     //プレイヤーの死亡処理
     public void Death()
     {
+        this.gameObject.SetActive(false);
         Debug.Log("ゲームオーバー");
     }
 
@@ -121,7 +95,9 @@ public class PlayerController : MonoBehaviour, Damageable
         {
             if (Mouse.current.leftButton.isPressed || _leftTrigger)
             {
+                //音を鳴らす
                 _audio.PlayOneShot(_clips[0]);
+                //弾を借りて表示
                 Vector3 _pos = this.transform.position;
                 Quaternion _rot = this.transform.rotation;
                 _objectPool.MyAmmoLaunch(_pos, _rot);
@@ -129,10 +105,4 @@ public class PlayerController : MonoBehaviour, Damageable
             yield return new WaitForSeconds(_interval);
         }
     }
-}
-
-public interface Damageable
-{
-    public void Damage(int value);
-    public void Death();
 }

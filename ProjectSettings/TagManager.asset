@@ -8,6 +8,10 @@ TagManager:
   - EAmo2
   - Wall
   - Core
+  - stage1
+  - stage2
+  - Quit
+  - MAmo
   layers:
   - Default
   - TransparentFX

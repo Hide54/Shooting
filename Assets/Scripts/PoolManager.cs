@@ -38,8 +38,11 @@ public class PoolManager : MonoBehaviour
      */
     private void Awake()
     {
+        //ƒvƒŒƒCƒ„[‚Ì’e‚ÌQueue‚ğì¬
         _myAmmoQueue = new Queue<MyAmmoController>();
+        //‰ó‚¹‚é“G‚Ì’e‚ÌQueue‚ğì¬
         _enemyAmmo1Queue = new Queue<EnemyAmmo1>();
+        //‰ó‚¹‚È‚¢“G‚Ì’e‚ÌQueue‚ğì¬
         _enemyAmmo2Queue = new Queue<EnemyAmmo2>();
 
         //ƒvƒŒƒCƒ„[‚Ì’e‚ğ¶¬‚µ‚ÄQueue‚É’Ç‰Á‚·‚é
@@ -53,14 +56,18 @@ public class PoolManager : MonoBehaviour
         //“G‚Ì’e‚ğ¶¬‚µ‚ÄQueue‚É’Ç‰Á‚·‚é
         for (int i = 0; i < _enemyAmmoMaxCount; i++)
         {
-            //‰ó‚¹‚é’e
+            //‰ó‚¹‚é’e‚ğ¶¬
             EnemyAmmo1 _tmpEnemyAmmo1 = Instantiate(_enemyAmmo1, _firstPos, Quaternion.identity, this.transform);
+            //”ñ•\¦
             EnemyAmmo1EnabledFalse(_tmpEnemyAmmo1);
+            //Queue‚ÉŠi”[
             _enemyAmmo1Queue.Enqueue(_tmpEnemyAmmo1);
 
-            //‰ó‚¹‚È‚¢’e
+            //‰ó‚¹‚È‚¢’e‚ğ¶¬
             EnemyAmmo2 _tmpEnemyAmmo2 = Instantiate(_enemyAmmo2, _firstPos, Quaternion.identity, this.transform);
+            //”ñ•\¦
             EnemyAmmo2EnabledFalse(_tmpEnemyAmmo2);
+            //Queue‚ÉŠi”[
             _enemyAmmo2Queue.Enqueue(_tmpEnemyAmmo2);
         }
     }

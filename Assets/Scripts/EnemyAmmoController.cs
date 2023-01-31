@@ -6,8 +6,11 @@ public class EnemyAmmoController : MonoBehaviour
 {
     [SerializeField, Header("弾の移動速度")]
     private float _speed = default;
+    [Header("弾のダメージ")]
+    public int _enemyDamage = default;
 
     [HideInInspector]
+    //オブジェクトプール
     public PoolManager _objectPool = default;
 
     private void Awake()

@@ -9,13 +9,10 @@ public class MyAmmoController : MonoBehaviour
 {
     [SerializeField, Header("弾の速度")]
     private float _speed = default;
-    [SerializeField, Header("BoxCastのx座標の半径")]
-    private float _rayX = default;
-    [SerializeField, Header("BoxCastのy座標の半径")]
-    private float _rayY = default;
-    [SerializeField, Header("BoxCastのz座標の半径")]
-    private float _rayZ = default;
+    [SerializeField, Header("ダメージ")]
+    private int _damage = default;
 
+    //オブジェクトプール
     private PoolManager _objectPool = default;
 
 
@@ -26,18 +23,8 @@ public class MyAmmoController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //弾の移動
         this.transform.position += this.transform.forward * _speed * Time.deltaTime;
-
-        //rayが当たったら自分を回収
-        RaycastHit _hit;
-        if (Physics.BoxCast(this.transform.position, new Vector3(_rayX, _rayY, _rayZ), Vector3.one * 0.1f, out _hit, Quaternion.identity, 0.1f))
-        {
-            if (_hit.collider.CompareTag("Core") || _hit.collider.CompareTag("Wall"))
-            {
-                Debug.Log("lol");
-                HideFromStage();
-            }
-        }
     }
 
     // 弾の位置と向き初期化処理
@@ -47,11 +34,23 @@ public class MyAmmoController : MonoBehaviour
         this.transform.rotation = rotation;
     }
 
-    //BoxCastを疑似的に表示する処理
-    public void OnDrawGizmos()
+    //オブジェクトに当たった処理
+    public void OnTriggerEnter(Collider obj)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(this.transform.position, new Vector3(_rayX * 2, _rayY * 2, _rayZ * 2));
+        Damageable _damageable = obj.gameObject.GetComponent<Damageable>();
+
+        //壁か壊せる敵の弾に当たったら何もせずに自分を回収
+        if (obj.CompareTag("Wall") || obj.CompareTag("EAmo1"))
+        {
+            HideFromStage();
+        }
+
+        //敵に当たったら敵の体力を1減らして自分を回収
+        else if (obj.CompareTag("Core"))
+        {
+            _damageable.Damage(_damage);
+            HideFromStage();
+        }
     }
 
     //自身を回収
